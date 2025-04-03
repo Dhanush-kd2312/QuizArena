@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import AiQuizData from './GeneralQuizData';
 import { Suspense } from 'react'; // Import Suspense
 
-const AIQuizPage = dynamic(() => import('./GeneralQuizpage]]'), {
+const AIQuizPage = dynamic(() => import('./GeneralQuizpage'), {
   ssr: false,
 });
 
