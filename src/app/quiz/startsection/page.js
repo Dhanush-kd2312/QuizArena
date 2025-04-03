@@ -63,6 +63,7 @@ export default function StartSection() {
     <Suspense fallback={<p>Loading quiz settings...</p>}>
       <div style={styles.container}>
         <div style={styles.box}>
+          <p>Category: {searchParams.get("category")}</p>
           <h1 style={{ fontSize: "20px", marginBottom: "15px" }}>
             {selectedCategory.toUpperCase()} Quiz Settings
           </h1>
