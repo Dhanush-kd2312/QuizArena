@@ -1,17 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from 'react'; // Import Suspense
+import { Suspense } from 'react';
 
 export default function StartSection() {
   const [numQuestions, setNumQuestions] = useState(5);
-  const [timeLimit, setTimeLimit] = useState(150); // Default: 5 questions → 2 min 30 sec
+  const [timeLimit, setTimeLimit] = useState(150);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category") || "python"; // Default to Python
+  const selectedCategory = searchParams.get("category") || "python";
 
   useEffect(() => {
-    setTimeLimit(numQuestions * 30); // Update time dynamically
+    setTimeLimit(numQuestions * 30);
   }, [numQuestions]);
 
   const handleDone = () => {
@@ -19,7 +19,6 @@ export default function StartSection() {
     router.push(`/quiz/${selectedCategory}?numQuestions=${numQuestions}&timeLimit=${timeLimit}`);
   };
 
-  // Styles using JS object
   const styles = {
     container: {
       display: "flex",
@@ -63,11 +62,9 @@ export default function StartSection() {
     <Suspense fallback={<p>Loading quiz settings...</p>}>
       <div style={styles.container}>
         <div style={styles.box}>
-          <p>Category: {searchParams.get("category")}</p>
           <h1 style={{ fontSize: "20px", marginBottom: "15px" }}>
             {selectedCategory.toUpperCase()} Quiz Settings
           </h1>
-
           <label style={{ display: "block", marginBottom: "10px" }}>Select Number of Questions:</label>
           <select
             value={numQuestions}
@@ -80,9 +77,7 @@ export default function StartSection() {
               </option>
             ))}
           </select>
-
           <p>Time Allocated: {timeLimit / 60} minutes</p>
-
           <button onClick={handleDone} style={styles.button}>Done</button>
         </div>
       </div>
