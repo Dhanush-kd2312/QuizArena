@@ -1,9 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from 'react';
 
-export default function StartSection() {
+function QuizSettings() {
   const [numQuestions, setNumQuestions] = useState(5);
   const [timeLimit, setTimeLimit] = useState(150);
   const router = useRouter();
@@ -59,28 +58,34 @@ export default function StartSection() {
   };
 
   return (
-    <Suspense fallback={<p>Loading quiz settings...</p>}>
-      <div style={styles.container}>
-        <div style={styles.box}>
-          <h1 style={{ fontSize: "20px", marginBottom: "15px" }}>
-            {selectedCategory.toUpperCase()} Quiz Settings
-          </h1>
-          <label style={{ display: "block", marginBottom: "10px" }}>Select Number of Questions:</label>
-          <select
-            value={numQuestions}
-            onChange={(e) => setNumQuestions(parseInt(e.target.value, 10))}
-            style={styles.select}
-          >
-            {[5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((num) => (
-              <option key={num} value={num}>
-                {num}
-              </option>
-            ))}
-          </select>
-          <p>Time Allocated: {timeLimit / 60} minutes</p>
-          <button onClick={handleDone} style={styles.button}>Done</button>
-        </div>
+    <div style={styles.container}>
+      <div style={styles.box}>
+        <h1 style={{ fontSize: "20px", marginBottom: "15px" }}>
+          {selectedCategory.toUpperCase()} Quiz Settings
+        </h1>
+        <label style={{ display: "block", marginBottom: "10px" }}>Select Number of Questions:</label>
+        <select
+          value={numQuestions}
+          onChange={(e) => setNumQuestions(parseInt(e.target.value, 10))}
+          style={styles.select}
+        >
+          {[5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((num) => (
+            <option key={num} value={num}>
+              {num}
+            </option>
+          ))}
+        </select>
+        <p>Time Allocated: {timeLimit / 60} minutes</p>
+        <button onClick={handleDone} style={styles.button}>Done</button>
       </div>
+    </div>
+  );
+}
+
+export default function StartSection() {
+  return (
+    <Suspense fallback={<p>Loading quiz settings...</p>}>
+      <QuizSettings />
     </Suspense>
   );
 }
